@@ -79,7 +79,7 @@ class PrimitivesTest {
 	@Test
 	void negativeNumberTest() {
 		long number = -1;
-		assertEquals(1, BitOperations.getBitValue(number, 0));
+		assertEquals(1, BitOperations.getBitValue(number, 63));
 		number = BitOperations.revertBitValue(number, 63);
 		assertEquals(0, BitOperations.getBitValue(number, 63));
 	}

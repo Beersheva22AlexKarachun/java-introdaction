@@ -15,7 +15,7 @@ public class BitOperations {
 	static public int getBitValue(long number, int nBit) {
 		int res = -1;
 		if (checkNbit(nBit)) {
-			long mask = 1 << nBit;
+			long mask = getMask(nBit);
 			res = ((number & mask) == 0) ? 0 : 1;
 		}
 		return res;
@@ -23,6 +23,10 @@ public class BitOperations {
 
 	private static boolean checkNbit(int nBit) {
 		return nBit < 64 && nBit > -1;
+	}
+
+	private static long getMask(int n) {
+		return 1L << n;
 	}
 
 	/**
@@ -34,7 +38,7 @@ public class BitOperations {
 	static public long setBitValue(long number, int nBit, boolean value) {
 		long res = -1;
 		if (checkNbit(nBit)) {
-			long mask = 1 << nBit;
+			long mask = getMask(nBit);
 			res = value ? (number | mask) : (number & ~mask);
 		}
 		return res;
@@ -46,12 +50,6 @@ public class BitOperations {
 	 * @return new number in which nBit'h will be replaced (old value 0 new value 1)
 	 */
 	static public long revertBitValue(long number, int nBit) {
-		long res = -1;
-		if (checkNbit(nBit)) {
-			int bitValue = getBitValue(number, nBit);
-			long mask = 1 << nBit;
-			res = (bitValue == 0) ? (number | mask) : (number & ~mask);
-		}
-		return res;
+		return checkNbit(nBit) ? (number ^ getMask(nBit)) : -1;
 	}
 }
