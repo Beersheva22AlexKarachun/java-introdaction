@@ -6,6 +6,7 @@ package java_introdaction;
  */
 
 public class BitOperations {
+	private static final int N_BITS = 64;
 
 	/**
 	 * @param number - any number
@@ -22,7 +23,7 @@ public class BitOperations {
 	}
 
 	private static boolean checkNbit(int nBit) {
-		return nBit < 64 && nBit > -1;
+		return nBit < N_BITS && nBit > -1;
 	}
 
 	private static long getMask(int n) {
@@ -47,9 +48,27 @@ public class BitOperations {
 	/**
 	 * @param number - any number
 	 * @param nBit   - bit number
-	 * @return new number in which nBit'h will be replaced (old value 0 new value 1)
+	 * @return new number in which nBit'h will be inverted
 	 */
-	static public long revertBitValue(long number, int nBit) {
+	static public long invertBitValue(long number, int nBit) {
 		return checkNbit(nBit) ? (number ^ getMask(nBit)) : -1;
+	}
+
+	static public int leadingZeros(long number) {
+		int res = 0;
+		int nBit = N_BITS - 1;
+		while (nBit >= 0 && getBitValue(number, nBit) == 0) {
+			res++;
+			nBit--;
+		}
+		return res;
+	}
+
+	static public int onesInNumber(long number) {
+		int res = 0;
+		for (int i = 0; i < N_BITS; i++) {
+			res += getBitValue(number, i);
+		}
+		return res;
 	}
 }
