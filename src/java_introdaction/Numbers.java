@@ -15,7 +15,7 @@ public class Numbers {
 	 * 
 	 * @param number - signed number
 	 * @param nDigit - number of digit [0..n]
-	 * @return
+	 * @return digit with number nDigit
 	 */
 	static public int getNdigit(long number, int nDigit) {
 		int res = -1;
@@ -32,7 +32,7 @@ public class Numbers {
 
 	/**
 	 * @param number
-	 * @return true only if number has 6 digits and sum of 1-3 equals sum 4-6.
+	 * @return true only if number is positive, has 6 digits and sum of 1-3 equals sum 4-6.
 	 */
 	static public boolean isLuckyNumber(long number) {
 		int firstTripletSum = 0;

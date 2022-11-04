@@ -11,16 +11,7 @@ public class SportLotoApp {
 	 * sequence
 	 */
 	public static void main(String[] args) {
-//		ArrayList<Integer> data = new ArrayList<Integer>();
-//
-//		for (int i = 0; i < 1000000; i++) {
-//			data.add(getRandomInt(MIN_VALUE, MAX_VALUE));
-//		}
-//		for (int k = MIN_VALUE; k <= MAX_VALUE; k++) {
-//			System.out.println(getAmountOfNumberInList(data, k) / (double) data.size());
-//		}
-//		System.out.println(data.size());
-		SportLoto();
+		getSportLotoSet(MIN_VALUE, MAX_VALUE);
 	}
 
 	public static long getAmountOfNumberInList(ArrayList<Integer> list1, long number) {
@@ -35,7 +26,10 @@ public class SportLotoApp {
 		return (int) (min + Math.random() * (max - min + 1));
 	}
 
-	public static void SportLoto() {
+	/**
+	 * The method generates 6 different number in range [min, max] and prints it.
+	 */
+	public static void getSportLotoSet(int min, int max) {
 		int num1 = 0;
 		int num2 = 0;
 		int num3 = 0;
@@ -43,17 +37,27 @@ public class SportLotoApp {
 		int num5 = 0;
 		int num6 = 0;
 		do {
-			num1 = getRandomInt(MIN_VALUE, MAX_VALUE);
-			num2 = getRandomInt(MIN_VALUE, MAX_VALUE);
-			num3 = getRandomInt(MIN_VALUE, MAX_VALUE);
-			num4 = getRandomInt(MIN_VALUE, MAX_VALUE);
-			num5 = getRandomInt(MIN_VALUE, MAX_VALUE);
-			num6 = getRandomInt(MIN_VALUE, MAX_VALUE);
+			num1 = getRandomInt(min, max);
+			num2 = getRandomInt(min, max);
+			num3 = getRandomInt(min, max);
+			num4 = getRandomInt(min, max);
+			num5 = getRandomInt(min, max);
+			num6 = getRandomInt(min, max);
 		} while (isDiffNumbers(num1, num2, num3, num4, num5, num6) != true);
 		
 		System.out.println(num1 + " " + num2 + " " + num3 + " " + num4 + " " + num5 + " " + num6);
 	}
-
+	
+	/**
+	 * 
+	 * @param num1
+	 * @param num2
+	 * @param num3
+	 * @param num4
+	 * @param num5
+	 * @param num6
+	 * @return - returns true if all six number are different, else - false.
+	 */
 	public static boolean isDiffNumbers(int num1, int num2, int num3, int num4, int num5, int num6) {
 		return ((num1 != num2 && num1 != num3 && num1 != num4 && num1 != num5 && num1 != num6) &&
 				(num2 != num3 && num2 != num4 && num2 != num5 && num2 != num6) &&
