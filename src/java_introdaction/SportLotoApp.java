@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class SportLotoApp {
 	static int  MIN_VALUE = 1;
-	static int MAX_VALUE = 10;
+	static int MAX_VALUE = 49;
 
 	/**
 	 * App displays out 6 random numbers from 1 to 49 numbers can't be repeated in a
@@ -43,13 +43,14 @@ public class SportLotoApp {
 		int num5 = 0;
 		int num6 = 0;
 		do {
-			num1 = getRandomInt(1, 49);
-			num2 = getRandomInt(1, 49);
-			num3 = getRandomInt(1, 49);
-			num4 = getRandomInt(1, 49);
-			num5 = getRandomInt(1, 49);
-			num6 = getRandomInt(1, 49);
+			num1 = getRandomInt(MIN_VALUE, MAX_VALUE);
+			num2 = getRandomInt(MIN_VALUE, MAX_VALUE);
+			num3 = getRandomInt(MIN_VALUE, MAX_VALUE);
+			num4 = getRandomInt(MIN_VALUE, MAX_VALUE);
+			num5 = getRandomInt(MIN_VALUE, MAX_VALUE);
+			num6 = getRandomInt(MIN_VALUE, MAX_VALUE);
 		} while (isDiffNumbers(num1, num2, num3, num4, num5, num6) != true);
+		
 		System.out.println(num1 + " " + num2 + " " + num3 + " " + num4 + " " + num5 + " " + num6);
 	}
 
