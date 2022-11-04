@@ -9,21 +9,6 @@ class PrimitivesTest {
 
 	@Test
 	@Disabled
-	void dataTypeTest() {
-		int b = 10;
-		short a = 20;
-		var h = 20;
-		char c = 'd';
-		long l = (long) 10.1;
-		byte b1 = (byte) 1000;
-		a = (short) l;
-		float f = 10.2f;
-		int b2 = 0xfffffff1;
-		assertEquals(-15, b2);
-	}
-
-	@Test
-	@Disabled
 	void operatorsTest() {
 		int a = 10;
 		assertEquals(13, a + 3);
@@ -97,12 +82,36 @@ class PrimitivesTest {
 	@Test
 	void onesInNumberTest() {
 		long number = 3;
-		assertEquals(2, BitOperations.onesInNumber(number))
-		//TODO;
+		assertEquals(2, BitOperations.onesInNumber(number));
 	}
 
 	@Test
 	void digitsNumberTest() {
-		// TODO
+		long number = 1234;
+		assertEquals(1, Numbers.getNdigit(number, 3));
+		assertEquals(2, Numbers.getNdigit(number, 2));
+		assertEquals(3, Numbers.getNdigit(number, 1));
+		assertEquals(4, Numbers.getNdigit(number, 0));
+		
+		number = 0;
+		assertEquals(0, Numbers.getNdigit(number, 0));
+		assertEquals(-1, Numbers.getNdigit(number, 2));
+		
+		number = -321;
+		assertEquals(3, Numbers.getNdigit(number, 2));
+		assertEquals(2, Numbers.getNdigit(number, 1));
+		assertEquals(1, Numbers.getNdigit(number, 0));
+	}
+	
+	@Test
+	void isLuckyNumberTest() {
+		long number = 1234;
+		assertEquals(false, Numbers.isLuckyNumber(number));
+		number = 123456;
+		assertEquals(false, Numbers.isLuckyNumber(number));
+		number = 123321;
+		assertEquals(true, Numbers.isLuckyNumber(number));
+		number = 423630;
+		assertEquals(true, Numbers.isLuckyNumber(number));
 	}
 }
