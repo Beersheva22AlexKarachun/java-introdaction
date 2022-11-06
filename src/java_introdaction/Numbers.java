@@ -12,40 +12,27 @@ public class Numbers {
 	}
 
 	/**
-	 * 
-	 * @param number - signed number
-	 * @param nDigit - number of digit [0..n]
-	 * @return digit with number nDigit
-	 */
-	static public int getNdigit(long number, int nDigit) {
-		int res = -1;
-		number = Math.abs(number);
-
-		if (nDigit <= (getNdigits(number) - 1)) {
-			for (int i = 0; i < nDigit; i++) {
-				number /= 10;
-			}
-			res = (int) number % 10;
-		}
-		return res;
-	}
-
-	/**
 	 * @param number
-	 * @return true only if number is positive, has 6 digits and sum of 1-3 equals sum 4-6.
+	 * @return true only if number is positive, has 6 digits and sum of 1-3 equals
+	 *         sum 4-6.
 	 */
 	static public boolean isLuckyNumber(long number) {
 		int firstTripletSum = 0;
 		int secondTripletSum = 0;
 		boolean res = false;
+		int digit = 0;
 		if (number >= 100000 && number <= 999999) {
-			for (int i = 0; i < 3; i++) {
-				firstTripletSum += getNdigit(number, i);
-				secondTripletSum += getNdigit(number, i + 3);
+			for (int i = 0; i < 6; i++) {
+				digit = (int) number % 10;
+				number /= 10;
+				if (i < 3) {
+					firstTripletSum += digit;
+				} else {
+					secondTripletSum += digit;
+				}
+				res = firstTripletSum == secondTripletSum;
 			}
-			res = firstTripletSum == secondTripletSum;
 		}
 		return res;
-
 	}
 }
