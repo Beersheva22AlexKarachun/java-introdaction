@@ -2,6 +2,10 @@ package java_introdaction;
 
 public class Numbers {
 
+	static public boolean isEven(int number) {
+		return (number % 2 == 0);
+	}
+
 	static public int getNdigits(long number) {
 		int res = 0;
 		do {
@@ -44,12 +48,38 @@ public class Numbers {
 		}
 		return res;
 	}
-	
+
 	public static int getNumberFromDigits(int[] digits) {
 		int res = 0;
 		for (int i = 0; i < digits.length; i++) {
 			res = res * 10 + digits[i];
 		}
 		return res;
+	}
+
+	public static int getSumOfDigits(int number) {
+		int res = 0;
+		int[] digits = getDigits(number);
+		number = Math.abs(number);
+		for (int i = 0; i < digits.length; i++) {
+			res += digits[i];
+		}
+		return res;
+	}
+
+	public static int getRandomInt(int min, int max) {
+		return (int) (min + Math.random() * (max - min + 1));
+	}
+	
+	public static long getRandomLong(long min, long max) {
+		return (min + (long) Math.random() * (max - min + 1));
+	}
+	
+	public static boolean isNegaiveInt(int number) {
+		return BitOperations.getBitValue(number, 31) == 1;
+	}
+	
+	public static boolean isPositive(int number) {
+		return BitOperations.getBitValue(number, 31) == 0;
 	}
 }

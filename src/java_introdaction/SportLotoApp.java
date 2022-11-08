@@ -22,11 +22,6 @@ public class SportLotoApp {
 		return res;
 	}
 
-	public static int getRandomInt(int min, int max) {
-		return (int) (min + Math.random() * (max - min + 1));
-
-	}
-
 	public static boolean checkNumberRange(int number, int min, int max) {
 		return (number >= min && number <= max) ? true : false;
 	}
@@ -39,7 +34,7 @@ public class SportLotoApp {
 		int count = 0;
 		int number = 0;
 		while (count < 6) {
-			number = getRandomInt(min, max);
+			number = Numbers.getRandomInt(min, max);
 			if (BitOperations.getBitValue(mask, number) == 0) {
 				mask = BitOperations.setBitValue(mask, number, true);
 				count++;

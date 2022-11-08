@@ -93,25 +93,6 @@ class PrimitivesTest {
 
 	@Test
 	@Disabled
-	void digitsNumberTest() {
-		long number = 1234;
-		assertEquals(1, Numbers.getNdigit(number, 3));
-		assertEquals(2, Numbers.getNdigit(number, 2));
-		assertEquals(3, Numbers.getNdigit(number, 1));
-		assertEquals(4, Numbers.getNdigit(number, 0));
-
-		number = 0;
-		assertEquals(0, Numbers.getNdigit(number, 0));
-		assertEquals(-1, Numbers.getNdigit(number, 2));
-
-		number = -321;
-		assertEquals(3, Numbers.getNdigit(number, 2));
-		assertEquals(2, Numbers.getNdigit(number, 1));
-		assertEquals(1, Numbers.getNdigit(number, 0));
-	}
-
-	@Test
-	@Disabled
 	void isLuckyNumberTest() {
 		long number = 1234;
 		assertEquals(false, Numbers.isLuckyNumber(number));
@@ -133,5 +114,53 @@ class PrimitivesTest {
 	void getNumberFromDigitsTest() {
 		int expectedNumber = 1234;
 		assertEquals(expectedNumber, Numbers.getNumberFromDigits(new int[] { 1, 2, 3, 4 }));
+	}
+
+	@Test
+	void additionalNumbersTest() {
+		assertEquals(5, Numbers.getSumOfDigits(23));
+		assertEquals(5, Numbers.getSumOfDigits(5));
+		assertEquals(7, Numbers.getSumOfDigits(61));
+		assertEquals(0, Numbers.getSumOfDigits(0));
+	}
+
+	@Test
+	void idTest() {
+		int id = 123456782;
+		assertEquals(40, IsraelIdentity.getIdControlSum(id));
+		assertTrue(IsraelIdentity.verify(id));
+		for (int i = 0; i < 100; i++) {
+			assertTrue(IsraelIdentity.verify(IsraelIdentity.generateRandomId()));
+		}
+		// assertEquals(10, IsraelIdentity.generateRandomId());
+	}
+
+	@Test
+	void isNegativeIntTest() {
+		assertTrue(Numbers.isNegaiveInt(-50));
+		assertTrue(Numbers.isNegaiveInt(-5));
+		assertFalse(Numbers.isNegaiveInt(50));
+	}
+
+	@Test
+	void myArraysTest() {
+		int[] array = { 1, 2, 3 };
+		array = MyArrays.addNumber(array, 4);
+		assertArrayEquals(new int[] { 1, 2, 3, 4 }, array);
+		array = MyArrays.addNumber(array, 5);
+		assertArrayEquals(new int[] { 1, 2, 3, 4, 5 }, array);
+
+		array = new int[] { 1, 2, 3, 4, 5, 6 };
+		assertArrayEquals(new int[] { 1, 2, 4, 5, 6 }, MyArrays.removeNumber(array, 2));
+		assertArrayEquals(new int[] { 1, 2, 3, 4, 5 }, MyArrays.removeNumber(array, 5));
+		assertArrayEquals(array, MyArrays.removeNumber(array, 10));
+
+		array = new int[] { 1, 2, 3, 5, 6 };
+		assertArrayEquals(new int[] { 1, 2, 3, 4, 5, 6 }, MyArrays.insertSorted(array, 4));
+		assertArrayEquals(new int[] { 1, 2, 3, 5, 6, 10 }, MyArrays.insertSorted(array, 10));
+		assertArrayEquals(new int[] { 0, 1, 2, 3, 5, 6 }, MyArrays.insertSorted(array, 0));
+		assertArrayEquals(new int[] { 1, 2, 3, 3, 5, 6 }, MyArrays.insertSorted(array, 3));
+		assertArrayEquals(new int[] { -5, 1, 2, 3, 5, 6 }, MyArrays.insertSorted(array, -5));
+
 	}
 }
