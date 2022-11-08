@@ -37,6 +37,7 @@ class PrimitivesTest {
 	}
 
 	@Test
+	@Disabled
 	void getBitValueTest() {
 		long number = 0x3ab7f5;
 		assertEquals(1, BitOperations.getBitValue(number, 5));
@@ -47,6 +48,7 @@ class PrimitivesTest {
 	}
 
 	@Test
+	@Disabled
 	void setBitValueTest() {
 		long number = 0x3ab7f5; // 0011 1010 1011 0111 11_1_1 0101
 		assertEquals(0x3ab7d5, BitOperations.setBitValue(number, 5, false));
@@ -54,6 +56,7 @@ class PrimitivesTest {
 	}
 
 	@Test
+	@Disabled
 	void revertBitValueTest() {
 		long number = 0x3ab7f5; // 001110101011011111_1_10101
 		assertEquals(0x3ab7d5, BitOperations.invertBitValue(number, 5));
@@ -62,6 +65,7 @@ class PrimitivesTest {
 	}
 
 	@Test
+	@Disabled
 	void negativeNumberTest() {
 		long number = -1;
 		assertEquals(1, BitOperations.getBitValue(number, 63));
@@ -70,6 +74,7 @@ class PrimitivesTest {
 	}
 
 	@Test
+	@Disabled
 	void leadingZerosTest() {
 		long number = 1L;
 		assertEquals(63, BitOperations.leadingZeros(number));
@@ -80,30 +85,33 @@ class PrimitivesTest {
 	}
 
 	@Test
+	@Disabled
 	void onesInNumberTest() {
 		long number = 3;
 		assertEquals(2, BitOperations.onesInNumber(number));
 	}
 
 	@Test
+	@Disabled
 	void digitsNumberTest() {
 		long number = 1234;
 		assertEquals(1, Numbers.getNdigit(number, 3));
 		assertEquals(2, Numbers.getNdigit(number, 2));
 		assertEquals(3, Numbers.getNdigit(number, 1));
 		assertEquals(4, Numbers.getNdigit(number, 0));
-		
+
 		number = 0;
 		assertEquals(0, Numbers.getNdigit(number, 0));
 		assertEquals(-1, Numbers.getNdigit(number, 2));
-		
+
 		number = -321;
 		assertEquals(3, Numbers.getNdigit(number, 2));
 		assertEquals(2, Numbers.getNdigit(number, 1));
 		assertEquals(1, Numbers.getNdigit(number, 0));
 	}
-	
+
 	@Test
+	@Disabled
 	void isLuckyNumberTest() {
 		long number = 1234;
 		assertEquals(false, Numbers.isLuckyNumber(number));
@@ -113,5 +121,17 @@ class PrimitivesTest {
 		assertEquals(true, Numbers.isLuckyNumber(number));
 		number = 423630;
 		assertEquals(true, Numbers.isLuckyNumber(number));
+	}
+
+	@Test
+	void getDigitsTest() {
+		int[] expected = { 1, 2, 3, 4 };
+		assertArrayEquals(expected, Numbers.getDigits(1234));
+	}
+
+	@Test
+	void getNumberFromDigitsTest() {
+		int expectedNumber = 1234;
+		assertEquals(expectedNumber, Numbers.getNumberFromDigits(new int[] { 1, 2, 3, 4 }));
 	}
 }
