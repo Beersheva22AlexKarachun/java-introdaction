@@ -1,7 +1,7 @@
 package java_introdaction;
 
 public class IsraelIdentity {
-	static final int ID_LENGHT = 9;
+	static final int ID_LENGTH = 9;
 
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class IsraelIdentity {
 	 */
 	public static boolean verify(int id) {
 		boolean res = false;
-		if (Numbers.getNdigits(id) == ID_LENGHT) {
+		if (id > 0 && Numbers.getNdigits(id) == ID_LENGTH) {
 			res = (getIdControlSum(id) % 10 == 0) ? true : false;
 		}
 		return res;
@@ -25,10 +25,24 @@ public class IsraelIdentity {
 	 * @return the sum calculated according to the above rules
 	 */
 	public static int getIdControlSum(int id) {
-		int res = 0;
 		int[] digits = Numbers.getDigits(id);
-		for (int i = 0; i < digits.length; i++) {
-			res += Numbers.isEven(i) ? digits[i] : Numbers.getSumOfDigits(digits[i] * 2);
+		return getEvenIndexesSum(digits) + getOddIndexesSum(digits);
+	}
+
+	private static int getEvenIndexesSum(int[] digits) {
+		int res = 0;
+		for (int i = 0; i < digits.length; i += 2) {
+			res += digits[i];
+		}
+		return res;
+	}
+
+	private static int getOddIndexesSum(int[] digits) {
+		int res = 0;
+		int temp = 0;
+		for (int i = 1; i < digits.length; i += 2) {
+			temp = digits[i] * 2;
+			res += temp < 10 ? temp : temp - 9;
 		}
 		return res;
 	}
@@ -44,6 +58,6 @@ public class IsraelIdentity {
 		int id = Numbers.getRandomInt(min, max) * 10;
 		int addition = (10 - (getIdControlSum(id) % 10)) % 10;
 		return id + addition;
-
 	}
+
 }

@@ -25,32 +25,57 @@ public class MyArrays {
 	public static int[] removeNumber(int[] array, int index) {
 		int[] res = array;
 		if (checkIndexRange(index, array.length)) {
-			int[] newArray = new int[array.length - 1];
-			System.arraycopy(array, 0, newArray, 0, index);
-			System.arraycopy(array, index + 1, newArray, index, array.length - index - 1);
-			res = newArray;
+			res = new int[array.length - 1];
+			System.arraycopy(array, 0, res, 0, index);
+			System.arraycopy(array, index + 1, res, index, array.length - index - 1);
 		}
 		return res;
 	}
 
-	public static boolean checkIndexRange(int index, int arrayLenght) {
-		return (index >= 0 && index < arrayLenght) ? true : false;
+	private static boolean checkIndexRange(int index, int arrayLength) {
+		return (index > -1 && index < arrayLength) ? true : false;
 	}
 
 	/**
 	 * 
-	 * @param arraySorted
+	 * @param array
 	 * @param number
 	 * @return new sorted array with inserted number
 	 */
-	public static int[] insertSorted(int[] arraySorted, int number) {
-		int[] newArray = new int[arraySorted.length + 1];
-		int insertionPoint = Arrays.binarySearch(arraySorted, number);
+	public static int[] insertSorted(int[] array, int number) {
+		int insertionPoint = Arrays.binarySearch(array, number);
 		insertionPoint = Numbers.isPositive(insertionPoint) ? insertionPoint : Math.abs(insertionPoint) - 1;
-		System.arraycopy(arraySorted, 0, newArray, 0, insertionPoint);
-		System.arraycopy(arraySorted, insertionPoint, newArray, insertionPoint + 1,
-				(arraySorted.length - insertionPoint));
-		newArray[insertionPoint] = number;
-		return newArray;
+		return insertAtIndex(array, number, insertionPoint);
+	}
+
+	private static int[] insertAtIndex(int[] array, int number, int index) {
+		int[] res = new int[array.length + 1];
+		System.arraycopy(array, 0, res, 0, index);
+		System.arraycopy(array, index, res, index + 1, array.length - index);
+		res[index] = number;
+		return res;
+	}
+	
+	/**
+	 * 
+	 * @param arraySorted
+	 * @param number
+	 * @return index if number exist otherwise -1
+	 */
+	public static int binarySearch(int[] arraySorted, int number) {
+		int left = 0;
+		int right = arraySorted.length - 1;
+		int middle = right / 2;
+
+		while (left <= right && arraySorted[middle] == number) {
+			if (number < arraySorted[middle]) {
+				right = middle - 1;
+			} else {
+				left = middle + 1;
+			}
+			middle = (right + left) / 2;
+
+		}
+		return left > right ? -1: middle;
 	}
 }
