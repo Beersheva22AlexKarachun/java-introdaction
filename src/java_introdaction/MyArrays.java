@@ -55,7 +55,7 @@ public class MyArrays {
 		res[index] = number;
 		return res;
 	}
-	
+
 	/**
 	 * 
 	 * @param arraySorted
@@ -76,6 +76,91 @@ public class MyArrays {
 			middle = (right + left) / 2;
 
 		}
-		return left > right ? -1: middle;
+		return left > right ? -1 : middle;
+	}
+
+	public static boolean isOneSwapForSorted(int[] array) {
+		boolean res = false;
+		int wrongOrderCounter = 0;
+		int[] indexes = new int[3];
+		int i = 0;
+		while (wrongOrderCounter < 3 && i < array.length - 1) {
+			if (array[i] > array[i + 1]) {
+				wrongOrderCounter++;
+				indexes[wrongOrderCounter - 1] = i;
+			}
+			i++;
+		}
+
+		if (2 == wrongOrderCounter) {
+			final int FIRST_INDEX = indexes[0];
+			final int SECOND_INDEX = indexes[1];
+
+			if (FIRST_INDEX == 0 && SECOND_INDEX == array.length - 2) {
+				res = array[FIRST_INDEX] >= array[SECOND_INDEX] && array[SECOND_INDEX + 1] <= array[FIRST_INDEX + 1];
+
+			} else if (FIRST_INDEX == 0) {
+				res = (array[FIRST_INDEX] >= array[SECOND_INDEX - 1] && array[FIRST_INDEX] <= array[SECOND_INDEX + 2])
+						&& array[SECOND_INDEX + 1] <= array[FIRST_INDEX + 1];
+
+			} else if (SECOND_INDEX == array.length - 2) {
+				res = array[FIRST_INDEX] >= array[SECOND_INDEX - 1] && (array[SECOND_INDEX] <= array[FIRST_INDEX + 1]
+						&& array[SECOND_INDEX] >= array[FIRST_INDEX - 1]);
+
+			} else {
+				res = (array[FIRST_INDEX] >= array[SECOND_INDEX] && array[FIRST_INDEX] <= array[SECOND_INDEX + 2])
+						&& (array[SECOND_INDEX + 1] >= array[FIRST_INDEX - 1]
+								&& array[SECOND_INDEX + 1] <= array[FIRST_INDEX + 1]);
+			}
+
+		} else if (1 == wrongOrderCounter) {
+			final int FIRST_INDEX = indexes[0];
+			if (FIRST_INDEX == 0) {
+				res = array[FIRST_INDEX] <= array[FIRST_INDEX + 2];
+			} else if (FIRST_INDEX == array.length - 2) {
+				res = array[FIRST_INDEX + 1] > array[FIRST_INDEX - 1];
+			} else {
+				res = (array[FIRST_INDEX + 1] > array[FIRST_INDEX - 1]) && (array[FIRST_INDEX + 2] > array[FIRST_INDEX]);
+			}
+		}
+		return res;
+	}
+
+	public static boolean isOneSwapForSortedInf(int[] array) {
+		boolean res = false;
+		int wrongOrderCounter = 0;
+		int[] indexes = new int[3];
+		int i = 0;
+
+		while (wrongOrderCounter < 3 && i < array.length - 1) {
+			if (array[i] > array[i + 1]) {
+				wrongOrderCounter++;
+				indexes[wrongOrderCounter - 1] = i + 1;
+			}
+			i++;
+		}
+		
+		if (wrongOrderCounter == 1 || wrongOrderCounter == 2) {
+			int[] arrayWithInf = new int[array.length + 2];
+			System.arraycopy(array, 0, arrayWithInf, 1, array.length);
+			arrayWithInf[0] = Integer.MIN_VALUE;
+			arrayWithInf[arrayWithInf.length - 1] = Integer.MAX_VALUE;
+			final int FIRST_INDEX = indexes[0];
+
+			if (2 == wrongOrderCounter) {
+				final int SECOND_INDEX = indexes[1];
+
+				res = (arrayWithInf[FIRST_INDEX] >= arrayWithInf[SECOND_INDEX]
+						&& arrayWithInf[FIRST_INDEX] <= arrayWithInf[SECOND_INDEX + 2])
+						&& (arrayWithInf[SECOND_INDEX + 1] >= arrayWithInf[FIRST_INDEX - 1]
+								&& arrayWithInf[SECOND_INDEX + 1] <= arrayWithInf[FIRST_INDEX + 1]);
+
+			} else if (1 == wrongOrderCounter) {
+
+				res = (arrayWithInf[FIRST_INDEX + 1] > arrayWithInf[FIRST_INDEX - 1])
+						&& (arrayWithInf[FIRST_INDEX + 2] > arrayWithInf[FIRST_INDEX]);
+			}
+		}
+		return res;
 	}
 }
