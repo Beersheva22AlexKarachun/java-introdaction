@@ -180,13 +180,13 @@ class PrimitivesTest {
 		int ar5[] = { 1, 3, 2, 5, 4, 10, 8 };
 		int ar6[] = { 1, 3, 20, 4, 5, 6, 10 };
 		int ar7[] = { 1, 3, 20, 4, 5, 11, 2 };
-		assertFalse(MyArrays.isOneSwapForSortedInf(ar1));
-		assertFalse(MyArrays.isOneSwapForSortedInf(ar2));
-		assertFalse(MyArrays.isOneSwapForSortedInf(ar3));
-		assertFalse(MyArrays.isOneSwapForSortedInf(ar4));
-		assertFalse(MyArrays.isOneSwapForSortedInf(ar5));
-		assertFalse(MyArrays.isOneSwapForSortedInf(ar6));
-		assertFalse(MyArrays.isOneSwapForSortedInf(ar7));
+		assertFalse(MyArrays.isOneSwapForSorted(ar1));
+		assertFalse(MyArrays.isOneSwapForSorted(ar2));
+		assertFalse(MyArrays.isOneSwapForSorted(ar3));
+		assertFalse(MyArrays.isOneSwapForSorted(ar4));
+		assertFalse(MyArrays.isOneSwapForSorted(ar5));
+		assertFalse(MyArrays.isOneSwapForSorted(ar6));
+		assertFalse(MyArrays.isOneSwapForSorted(ar7));
 	}
 
 	@Test
@@ -200,12 +200,48 @@ class PrimitivesTest {
 		int ar5[] = { 1, 2, 3, 4, 10, 5 };
 		int ar6[] = { 2, 1, -3, 4, 5, 10 };
 		int ar7[] = { 3, 2, 1, 4, 5, 6 };
-		assertTrue(MyArrays.isOneSwapForSortedInf(ar1));
-		assertTrue(MyArrays.isOneSwapForSortedInf(ar2));
-		assertTrue(MyArrays.isOneSwapForSortedInf(ar3));
-		assertTrue(MyArrays.isOneSwapForSortedInf(ar4));
-		assertTrue(MyArrays.isOneSwapForSortedInf(ar5));
-		assertTrue(MyArrays.isOneSwapForSortedInf(ar6));
-		assertTrue(MyArrays.isOneSwapForSortedInf(ar7));
-}
+		assertTrue(MyArrays.isOneSwapForSorted(ar1));
+		assertTrue(MyArrays.isOneSwapForSorted(ar2));
+		assertTrue(MyArrays.isOneSwapForSorted(ar3));
+		assertTrue(MyArrays.isOneSwapForSorted(ar4));
+		assertTrue(MyArrays.isOneSwapForSorted(ar5));
+		assertTrue(MyArrays.isOneSwapForSorted(ar6));
+		assertTrue(MyArrays.isOneSwapForSorted(ar7));
+	}
+
+	@Test
+//	@Disabled
+	void binarySearchTest() {
+		int[] ar1 = { 1, 2, 3, 4, 5, 6 };
+		int[] ar2 = { 1, 2, 2, 2, 2, 3, 3, 3, 3, 5, 6 };
+		int[] ar3 = { 1, 2, 2, 2, 2, 2, 2, 2, 3 };
+		int[] ar4 = { 1, 1, 1, 2, 3, 4, 5, 6, 6 };
+		int[] ar5 = {};
+		assertEquals(1, MyArrays.binarySearch(ar1, 2));
+		assertEquals(-1, MyArrays.binarySearch(ar1, 0));
+		assertEquals(-6, MyArrays.binarySearch(ar1, 7));
+		assertEquals(5, MyArrays.binarySearch(ar2, 3));
+		assertEquals(-9, MyArrays.binarySearch(ar2, 4));
+		assertEquals(1, MyArrays.binarySearch(ar3, 2));
+		assertEquals(7, MyArrays.binarySearch(ar4, 6));
+		assertEquals(-1, MyArrays.binarySearch(ar5, 6));
+	}
+
+	@Test
+	void bubbleSort() {
+		int[] expectedArray = { 1, 2, 3, 4, 5 };
+		int[] ar2 = { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+		int[] ar3 = { 1, 2, 4, 3, 5 };
+		int[] ar4 = { 3, 2, 1, 4, 6, 5 };
+		int[] ar5 = {};
+		int[] ar6 = null;
+
+		assertArrayEquals(expectedArray, MyArrays.bubbleSort(expectedArray));
+		assertArrayEquals(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, MyArrays.bubbleSort(ar2));
+		assertArrayEquals(expectedArray, MyArrays.bubbleSort(ar3));
+		assertArrayEquals(new int[] { 1, 2, 3, 4, 5, 6 }, MyArrays.bubbleSort(ar4));
+		assertArrayEquals(new int[] {}, MyArrays.bubbleSort(ar5));
+		assertArrayEquals(null, MyArrays.bubbleSort(ar6));
+
+	}
 }
