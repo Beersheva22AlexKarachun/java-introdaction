@@ -244,4 +244,27 @@ class PrimitivesTest {
 		assertArrayEquals(null, MyArrays.bubbleSort(ar6));
 
 	}
+	
+	@Test
+	void isSum2True() {
+		short[] ar1 = {1,3,2,7,11,4,5,6,7,4,3,2,55};
+		assertTrue(MyArrays.isSum2(ar1, (short) 4));
+		assertTrue(MyArrays.isSum2(ar1, (short) 9));
+		assertTrue(MyArrays.isSum2(ar1, (short) 3));
+		assertTrue(MyArrays.isSum2(ar1, (short) 6));
+		assertTrue(MyArrays.isSum2(ar1, (short) 15));
+		assertTrue(MyArrays.isSum2(ar1, (short) 16));
+		assertTrue(MyArrays.isSum2(ar1, (short) 56));
+		
+	}
+	
+
+	void isSum2False() {
+		short[] ar1 = {1,3,2,7,11,4,5,6,7,4,3,2};
+		
+		assertFalse(MyArrays.isSum2(ar1, (short) 99));
+		assertFalse(MyArrays.isSum2(ar1, (short) 50));
+		assertFalse(MyArrays.isSum2(ar1, (short) 30));
+		assertFalse(MyArrays.isSum2(ar1, (short) 22));
+	}
 }

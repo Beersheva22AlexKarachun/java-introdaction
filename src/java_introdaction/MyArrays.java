@@ -5,11 +5,7 @@ import java.util.Arrays;
 public class MyArrays {
 
 	public static void main(String[] args) {
-		int[] array = { 5, 4, 3, 2, 1 };
-		System.out.println(isSorted(new int[] { 5, 4, 3, 2, 1 }));
-		System.out.println(isSorted(new int[] { 1, 2, 3, 4, 5 }));
-		System.out.println(isSorted(new int[] { 5, 4, 2, 1, 3 }));
-
+		System.out.println(Short.MAX_VALUE);
 	}
 
 	/**
@@ -186,5 +182,22 @@ public class MyArrays {
 		array[firstIndex] = array[secondIndex];
 		array[secondIndex] = temp;
 
+	}
+
+	public static boolean isSum2(short[] array, short sum) {
+		boolean[] table = new boolean[sum + 1];
+		int i = 0;
+		boolean res = false;
+		while (i < array.length) {
+			if (sum - array[i] > 0 && table[sum - array[i]]) {
+				res = true;
+				break;
+			}
+			if (array[i] < sum) {
+				table[array[i]] = true;
+			}
+			i++;
+		}
+		return res;
 	}
 }
