@@ -1,5 +1,7 @@
 package java_introdaction;
 
+import java.util.Iterator;
+
 public class Strings {
 	/**
 	 * 
@@ -22,7 +24,7 @@ public class Strings {
 				j++;
 			}
 		}
-		return j == Character.MAX_VALUE ? true : false;
+		return j == Character.MAX_VALUE;
 	}
 
 	/**
@@ -47,5 +49,24 @@ public class Strings {
 				helper[j]--;
 			}
 		}
+	}
+
+	public static String javaNameExp() {
+
+		return "[a-zA-Z$][\\w$]*|_[\\w$]+";
+	}
+
+	public static String ipV4Octet() {
+		// TODO
+		return "(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])";
+	}
+
+	public static String ipV4() {
+		short AMOUNT_OF_OCTETS = 4;
+		String res = "";
+		for (int i = 0; i < AMOUNT_OF_OCTETS - 1; i++) {
+			res += ipV4Octet() + "\\.";
+		}
+		return res + ipV4Octet();
 	}
 }
