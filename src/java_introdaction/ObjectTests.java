@@ -2,12 +2,12 @@ package java_introdaction;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-import static telran.Strings.*;
+import static telran.text.Strings.*;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import telran.Strings;
+import telran.text.Strings;
 
 class ObjectTests {
 

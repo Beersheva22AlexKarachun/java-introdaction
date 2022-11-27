@@ -1,7 +1,7 @@
-package telran;
+package telran.text;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static telran.Strings.computeArithmenticExpression;
+import static telran.text.Strings.computeArithmenticExpression;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -97,8 +97,8 @@ class StringsTest {
 		String[] wrongOperands = { "-0100", "15,98", ".67.", "1number", "_" };
 
 		for (int i = 0; i < rightOperands.length; i++) {
-			assertTrue(rightOperands[i].matches(Strings.operand()));
-			assertFalse(wrongOperands[i].matches(Strings.operand()));
+			assertTrue(rightOperands[i].matches(Strings.operandExp()));
+			assertFalse(wrongOperands[i].matches(Strings.operandExp()));
 		}
 	}
 
@@ -107,8 +107,8 @@ class StringsTest {
 		String[] rightExpressions = { "(9+2", "(((10+5", "(10+((2)+3)))", "a+5)+((11)+b-dump13" };
 		String[] wrongExpressions = { "(9+2(", ")10)+5", "10)+2)+3", "a+5)+((11)+b-1dump13" };
 		for (int i = 0; i < rightExpressions.length; i++) {
-			assertTrue(rightExpressions[i].matches(Strings.arithmeticExpression()));
-			assertFalse(wrongExpressions[i].matches(Strings.arithmeticExpression()));
+			assertTrue(rightExpressions[i].matches(Strings.arithmeticExp()));
+			assertFalse(wrongExpressions[i].matches(Strings.arithmeticExp()));
 		}
 	}
 
@@ -128,10 +128,13 @@ class StringsTest {
 		assertTrue(Double.isNaN(computeArithmenticExpression("2 # 2 ++ 10", null, null)));
 		assertEquals(10.5,
 				computeArithmenticExpression("a + 2 + c * 2 + 0.5", new double[] { 2, 1 }, new String[] { "a", "c" }));
+		
 		assertTrue(Double.isNaN(
 				computeArithmenticExpression("a + 2 + c * 2 + d23", new double[] { 2, 1 }, new String[] { "a", "c" })));
+		
 		assertEquals(123, computeArithmenticExpression("one + .5 + two * 3 / three", new double[] { 14, 0.5, 6 },
 				new String[] { "one", "three", "two" }));
+		
 		assertEquals(15, computeArithmenticExpression("a+b+c+d+g", new double[] { 1, 2, 3, 4, 5 },
 				new String[] { "a", "b", "c", "d", "g" }));
 	}

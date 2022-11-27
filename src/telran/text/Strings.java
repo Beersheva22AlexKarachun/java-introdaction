@@ -1,4 +1,4 @@
-package telran;
+package telran.text;
 
 import java.util.Arrays;
 
@@ -64,29 +64,29 @@ public class Strings {
 		return String.format("(%1$s\\.){3}%1$s", octetExp);
 	}
 
-	public static String arithmeticExpression() {
-		String operatorExp = operator();
-		String operandExp = operand();
+	public static String arithmeticExp() {
+		String operatorExp = operatorExp();
+		String operandExp = operandExp();
 
 		return String.format("\\(*%1$s(%2$s\\(*%1$s\\)*)*", operandExp, operatorExp);
 	}
 
-	public static String number() {
+	public static String numberExp() {
 		return "(\\d+\\.?\\d*|\\.\\d+)";
 	}
 
-	public static String operand() {
-		return String.format("(%s|%s)", number(), javaNameExp());
+	public static String operandExp() {
+		return String.format("(%s|%s)", numberExp(), javaNameExp());
 	}
 
-	private static String operator() {
+	private static String operatorExp() {
 
 		return "([-+*/])";
 	}
 
 	public static boolean isArithmeticExpression(String expression) {
 		expression = expression.replaceAll("\\s+", "");
-		return expression.matches(arithmeticExpression());
+		return expression.matches(arithmeticExp());
 	}
 
 	/**
@@ -100,8 +100,8 @@ public class Strings {
 		Double res = Double.NaN;
 		if (isArithmeticExpression(expression) && checkBraces(expression)) {
 			expression = expression.replaceAll("[\\s()]+", "");
-			String operands[] = expression.split(operator());
-			String operators[] = expression.split(operand());
+			String operands[] = expression.split(operatorExp());
+			String operators[] = expression.split(operandExp());
 			res = getOperandValue(operands[0], values, names);
 			int index = 1;
 			while (index < operands.length && !res.isNaN()) {
@@ -140,11 +140,11 @@ public class Strings {
 
 	private static Double getOperandValue(String operand, double[] values, String[] names) {
 		Double res = Double.NaN;
-		if (operand.matches(number())) {
+		if (operand.matches(numberExp())) {
 			res = Double.parseDouble(operand);
 		} else {
-			int index = binarySearch(names, operand);
-			res = (index != -1) ? values[index] : res;
+			int index = Arrays.binarySearch(names, operand);
+			res = (index > -1) ? values[index] : res;
 		}
 		return res;
 	}
@@ -152,33 +152,15 @@ public class Strings {
 	public static boolean checkBraces(String expression) {
 		int count = 0, i = 0, length = expression.length();
 		while (i < length && count > -1) {
-			if (expression.charAt(i) == '(') {
+			char symbol = expression.charAt(i);
+			if (symbol == '(') {
 				count++;
-			} else if (expression.charAt(i) == ')') {
+			} else if (symbol == ')') {
 				count--;
 			}
 			i++;
 		}
 		return count == 0;
-	}
-
-	static int binarySearch(String[] arr, String key) {
-		int left = 0, right = arr.length - 1;
-		int middle = left + (right - left) / 2;
-		int res = -1;
-		while (left <= right && res == -1) {
-			int diff = key.compareTo(arr[middle]);
-
-			if (diff == 0) {
-				res = middle;
-			} else if (diff > 0) {
-				left = middle + 1;
-			} else {
-				right = middle - 1;
-			}
-			middle = (left + right) / 2;
-		}
-		return res;
 	}
 
 }
